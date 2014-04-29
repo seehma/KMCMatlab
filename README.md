@@ -6,6 +6,6 @@ These are the Matlab files for connecting the Kuka Matlab Connector with your Ku
 #Examples
 
 #Author & Info
-Matthias S.
-matthias@seehauser.at
+Matthias S.<br/>
+matthias@seehauser.at<br/>
 http://www.seesle.at

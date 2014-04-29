@@ -516,7 +516,7 @@ if( ishandle(handles) )
   set(handles.text_CommandValues,'String',robotConnection.getAktCommandString());
   set(handles.text_ConnectionState,'String',robotConnection.getConnectionState());
   set(handles.text_LockingState,'String',robotConnection.isCorrectionCommandAllowed());
-  set(handles.text_SendPackagesCounter,'String',robotConnection.getPackagesSendCounter());
+  set(handles.text_SentPackagesCounter,'String',robotConnection.getPackagesSentCounter());
   set(handles.text_ReceivedPackagesCounter,'String',robotConnection.getPackagesReceivedCounter());
   set(handles.text_CycleTimeUS,'String',robotConnection.getCommunicationTimeMicroSeconds());
   set(handles.text_DelayInfo,'String',robotConnection.getWrapperDelayInfo());

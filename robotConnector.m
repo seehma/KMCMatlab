@@ -142,9 +142,9 @@ classdef robotConnector < handle
       
     end
     
-    function sendPackages = getPackagesSendCounter( obj )
+    function sendPackages = getPackagesSentCounter( obj )
       
-      sendPackages = obj.connector.getPackagesSendCounter();
+      sendPackages = obj.connector.getPackagesSentCounter();
       
     end
     
