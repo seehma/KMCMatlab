@@ -135,9 +135,9 @@ classdef robotConnector < handle
       
     end
     
-    function delayedInfo = getWrapperDelayInfo( obj )
+    function debugInfo = getWrapperDebugCommInfo( obj )
      
-      delayedInfo = char(obj.connector.getDelayedCommInfo());
+      debugInfo = char(obj.connector.getDebugCommInfo());
       
     end
     
@@ -879,7 +879,7 @@ classdef robotConnector < handle
       set(obj.guiHandle.staticTextSendPackages,'String',obj.getPackagesSentCounter());
       set(obj.guiHandle.staticTextReceivedPackages,'String',obj.getPackagesReceivedCounter());
       set(obj.guiHandle.staticTextCycleTime,'String',obj.getCommunicationTimeMicroSeconds());
-      set(obj.guiHandle.staticTextDebugInfo,'String',obj.getWrapperDelayInfo());
+      set(obj.guiHandle.staticTextDebugInfo,'String',obj.getWrapperDebugCommInfo());
  
     end
     
