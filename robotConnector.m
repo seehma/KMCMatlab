@@ -457,12 +457,12 @@ classdef robotConnector < handle
       obj.guiHandle.editTextKorr4 = uicontrol('style','edit','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[150 (110+2*45) 40 20],'string','');
       obj.guiHandle.editTextKorr5 = uicontrol('style','edit','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[150 (110+1*45) 40 20],'string','');
       obj.guiHandle.editTextKorr6 = uicontrol('style','edit','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[150 (110+0*45) 40 20],'string','');
-      obj.guiHandle.staticTextKorr1 = uicontrol('style','text','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[50 (110+5*45) 40 20],'string','Korr1');
-      obj.guiHandle.staticTextKorr2 = uicontrol('style','text','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[50 (110+4*45) 40 20],'string','Korr2');
-      obj.guiHandle.staticTextKorr3 = uicontrol('style','text','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[50 (110+3*45) 40 20],'string','Korr3');
-      obj.guiHandle.staticTextKorr4 = uicontrol('style','text','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[50 (110+2*45) 40 20],'string','Korr4');
-      obj.guiHandle.staticTextKorr5 = uicontrol('style','text','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[50 (110+1*45) 40 20],'string','Korr5');
-      obj.guiHandle.staticTextKorr6 = uicontrol('style','text','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[50 (110+0*45) 40 20],'string','Korr6');
+      obj.guiHandle.staticTextKorr1 = uicontrol('style','text','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[30 (110+5*45) 60 20],'string','Korr1');
+      obj.guiHandle.staticTextKorr2 = uicontrol('style','text','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[30 (110+4*45) 60 20],'string','Korr2');
+      obj.guiHandle.staticTextKorr3 = uicontrol('style','text','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[30 (110+3*45) 60 20],'string','Korr3');
+      obj.guiHandle.staticTextKorr4 = uicontrol('style','text','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[30 (110+2*45) 60 20],'string','Korr4');
+      obj.guiHandle.staticTextKorr5 = uicontrol('style','text','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[30 (110+1*45) 60 20],'string','Korr5');
+      obj.guiHandle.staticTextKorr6 = uicontrol('style','text','parent',obj.guiHandle.buttonGroupJogging,'Units','pixels','position',[30 (110+0*45) 60 20],'string','Korr6');
       % Jogging Selector
       obj.guiHandle.buttonGroupJoggingSel = uibuttongroup('Units','pixels','position',[(obj.guiRightFrame+obj.guiBorder) obj.guiBorder+90+obj.guiBorder+90+obj.guiBorder+390+obj.guiBorder 310 90]);
       obj.guiHandle.radioButtonAKorrCorrection = uicontrol('style','radiobutton','parent',obj.guiHandle.buttonGroupJoggingSel,'Units','pixels','position',[20 15 160 20],'string','AKorr Correction');
