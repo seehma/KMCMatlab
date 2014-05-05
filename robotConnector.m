@@ -48,12 +48,7 @@ classdef robotConnector < handle
       obj.fullPathToWrapperDll = fullPathToWrapperDll;
       
       obj.kukaAssembly = NET.addAssembly( obj.fullPathToWrapperDll );
-<<<<<<< HEAD
-      obj.connector = KukaMatlabConnector.ConnectorObject('commanddoc.xml',obj.ipAddress, 6008);
-=======
       obj.connector = KukaMatlabConnector.ConnectorObject('commanddoc.xml', obj.ipAddress, port);
->>>>>>> 597da25aebb27a399ff403fb1caae8482d5b6273
-     
     end
     
     function delete(obj)
