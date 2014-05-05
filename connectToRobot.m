@@ -13,7 +13,7 @@ java.lang.Thread.sleep(100);
 cycleTime = 12;
 
 disp('starting wrapper...');
-t=robotConnector('192.168.1.11',cycleTime,'C:\Users\Matthias.SEESLENET\Dropbox\MCI\Master\thesis\myThesis\KMC\final\wrapper\KukaMatlabConnector\KukaMatlabConnector\bin\Release\KukaMatlabConnector.dll');
+t=robotConnector('192.168.1.11',cycleTime,'C:\Users\Matthias.SEESLENET\Documents\GitHub\KMC\bin\Release\KukaMatlabConnector.dll');
 
 disp('starting connection to robot...');
 t.connect();

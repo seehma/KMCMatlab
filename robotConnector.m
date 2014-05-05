@@ -39,7 +39,7 @@ classdef robotConnector < handle
       % check if the right .NET version is installed
       %obj.kukaAssembly = NET.addAssembly('C:\Users\Matthias.SEESLENET\Dropbox\MCI\Master\thesis\myThesis\KMC\final\wrapper\KukaMatlabConnector\KukaMatlabConnector\bin\Release\KukaMatlabConnector.dll');
       obj.kukaAssembly = NET.addAssembly( obj.fullPathToWrapperDll );
-      obj.connector = KukaMatlabConnector.ConnectorObject('commanddoc.xml',obj.ipAddress);
+      obj.connector = KukaMatlabConnector.ConnectorObject('commanddoc.xml',obj.ipAddress, 6008);
      
     end
     
