@@ -427,7 +427,7 @@ classdef robotConnector < handle
       % Create the gui
       % -----------------------------------------------------------------------------------------------------------------------
       % create guiHandle
-      obj.guiHandle.figure = figure('Visible','off','Menu','none','Resize','off','Units','pixels','Position',[100 100 920 700]);
+      obj.guiHandle.figure = figure('Visible','off','Menu','none','Resize','off','Units','pixels','Position',[100 100 920 700],'Name','Connector Client');
       movegui(obj.guiHandle.figure,'center');
       % create first buttons
       obj.guiHandle.buttonGroupProgrammHandling = uibuttongroup('Units','pixels','Position',[obj.guiRightFrame+obj.guiBorder obj.guiBorder 310 50]);
