@@ -14,12 +14,8 @@ java.lang.Thread.sleep(100);
 cycleTime = 12;
 
 disp('starting wrapper...');
-<<<<<<< HEAD
-t=robotConnector('192.168.1.11',cycleTime,'C:\Users\Matthias.SEESLENET\Documents\GitHub\KMC\bin\Release\KukaMatlabConnector.dll');
 
-=======
 t=robotConnector('192.168.1.11',6008,cycleTime,'C:\Users\Matthias.SEESLENET\Documents\GitHub\KMC\bin\Release\KukaMatlabConnector.dll');
->>>>>>> 597da25aebb27a399ff403fb1caae8482d5b6273
 disp('starting connection to robot...');
 t.connect();
 disp('starting gui...');
