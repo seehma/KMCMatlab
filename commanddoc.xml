@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 <Sen Type="KMC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ExternalData.xsd">
+=======
+<Sen Type="KMC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="commanddoc.xsd">
+>>>>>>> 597da25aebb27a399ff403fb1caae8482d5b6273
    <Dat TaskType="b">
       <EStr>Info: ERX Message!</EStr>
       <RKorr X="0.0000" Y="0.0000" Z="0.0000" A="0.0000" B="0.0000" C="0.0000" />
       <AKorr A1="0.0000" A2="0.0000" A3="0.0000" A4="0.0000" A5="0.0000" A6="0.0000" />
+<<<<<<< HEAD
       <Tech x="1" p3="0.0000" p4="0.0000" p5="0.0000" p3x1="0.0000" p4x1="0.0000" p5x1="0.0000" p3x2="0.0000" p4x2="0.0000" p5x2="0.0000" p3x3="0.0000" p4x3="0.0000" p5x3="0.0000" />
+=======
+>>>>>>> 597da25aebb27a399ff403fb1caae8482d5b6273
       <DiO>0</DiO>
       <IPOC>0000000000</IPOC>
    </Dat>
