@@ -15,13 +15,13 @@ cycleTime = 12;
 
 disp('starting wrapper...');
 
-t=robotConnector('192.168.1.11',6008,cycleTime,'C:\Users\Matthias.SEESLENET\Documents\GitHub\KMC\bin\Release\KukaMatlabConnector.dll');
+conHandle=robotConnector('192.168.2.2',6008,cycleTime,'C:\Users\Matthias.SEESLENET\Documents\GitHub\KMC\bin\Release\KukaMatlabConnector.dll');
 disp('starting connection to robot...');
-t.connect();
+conHandle.connect();
 disp('starting gui...');
-t.initGUI();
+conHandle.initGUI();
 disp('waiting for connection attempt from robot...');
-while( (t.isConnected() ~= 1) )
+while( (conHandle.isConnected() ~= 1) )
   pause(0.01);
 end
 

@@ -7,8 +7,8 @@ tic();
 for i=1:1:loopCount
   a4Str = '0,0833';
  
-  t.modifyAKorrVariable('AKorr4',a4Str);
-  aktRobotData(i) = {t.getAktRobotInfo()};
+  conHandle.modifyAKorrVariable('AKorr4',a4Str);
+  aktRobotData(i) = {conHandle.getAktRobotInfo()};
 
   % set string to textbox
   set(handles.text_RobotInfo,'String',aktRobotData(i));
@@ -18,7 +18,7 @@ for i=1:1:loopCount
 end
 toc();
 
-t.modifyAKorrVariable('AKorr4','0,0');
+conHandle.modifyAKorrVariable('AKorr4','0,0');
 
 RIst = zeros(loopCount,6);
 RSol = zeros(loopCount,6);
@@ -29,6 +29,6 @@ FT = zeros(loopCount,7);
 
 for i=1:1:loopCount
 
-  [RIst(i,:),RSol(i,:),AIst(i,:),ASol(i,:), MACur(i,:), FT(i,:)] = t.decodeRobotInfoString( aktRobotData{i} );
+  [RIst(i,:),RSol(i,:),AIst(i,:),ASol(i,:), MACur(i,:), FT(i,:)] = conHandle.decodeRobotInfoString( aktRobotData{i} );
   
 end

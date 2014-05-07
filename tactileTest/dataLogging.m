@@ -12,7 +12,7 @@ wholeLoop=tic();
 for i=1:1:loopCount
   innerLoop=tic();
   
-  [RIst(i,:),RSol(i,:),AIst(i,:),ASol(i,:), MACur(i,:), FT(i,:)] = t.decodeRobotInfoString( t.getAktRobotInfo() );
+  [RIst(i,:),RSol(i,:),AIst(i,:),ASol(i,:), MACur(i,:), FT(i,:)] = conHandle.decodeRobotInfoString( t.getAktRobotInfo() );
 
   while( toc(innerLoop) < 0.011 )
   end

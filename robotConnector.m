@@ -202,6 +202,12 @@ classdef robotConnector < handle
       
     end
     
+    function returnal = isNextCycleStarted( obj )
+      
+      returnal = obj.connector.isNextCycleStarted();
+      
+    end
+    
     
     function stringVar = convertByteToString( obj, byteAy )
       

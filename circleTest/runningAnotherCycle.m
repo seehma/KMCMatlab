@@ -18,7 +18,7 @@ for i=1:1:endFor(2)
  
   t.modifyRKorr('RKorrX',xStr);
   t.modifyRKorr('RKorrY',yStr);
-  aktRobotData(i) = {t.getAktRobotInfo()};
+  aktRobotData(i) = {conHandle.getAktRobotInfo()};
 
   % set string to textbox
   set(handles.text_RobotInfo,'String',aktRobotData(i));
