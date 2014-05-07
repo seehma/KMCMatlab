@@ -6,6 +6,7 @@ addpath('circleTest');
 addpath('rotateAxis4');
 addpath('tactileTest');
 addpath('calcTrajectory');
+addpath('moveConstForce');
 
 disp('doing init java sleep...');
 java.lang.Thread.sleep(100);
