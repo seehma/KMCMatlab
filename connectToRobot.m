@@ -6,6 +6,7 @@ addpath('circleTest');
 addpath('rotateAxis4');
 addpath('tactileTest');
 addpath('calcTrajectory');
+addpath('calcTrajectorySynchron');
 addpath('moveConstForce');
 
 disp('doing init java sleep...');
@@ -22,7 +23,7 @@ conHandle.connect();
 disp('starting gui...');
 conHandle.initGUI();
 disp('waiting for connection attempt from robot...');
-while( (conHandle.isConnected() ~= 1) )
+while( (conHandle.isConnected() ~= 1) && (conHandle.objectUp() == 1) )
   pause(0.01);
 end
 

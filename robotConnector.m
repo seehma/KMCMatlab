@@ -1,3 +1,12 @@
+%---------------------------------------------------------------------------------------------------------------------------------
+% Kuka Matlab Connector - Matlab Toolbox for usage with KMC
+% 
+% Author:      Matthias Seehauser
+% Date:        08.05.2014
+% Institution: MCI
+% Website:     http://www.github.com/seehma/
+%
+%---------------------------------------------------------------------------------------------------------------------------------
 classdef robotConnector < handle
   
   properties (GetAccess='private', SetAccess='private')
@@ -49,11 +58,18 @@ classdef robotConnector < handle
       
       obj.kukaAssembly = NET.addAssembly( obj.fullPathToWrapperDll );
       obj.connector = KukaMatlabConnector.ConnectorObject('commanddoc.xml', obj.ipAddress, port);
+      
+      obj.objUp = 1;
     end
     
+    % ----------------------------------------------------------------------------------------------------------------------------
+    % Destructor ... stops the connection of KMC and 
+    %
+    % ----------------------------------------------------------------------------------------------------------------------------
     function delete(obj)
       
       obj.connector.stopRobotConnChannel();
+      obj.connector.delete();
       
     end
     
@@ -305,7 +321,7 @@ classdef robotConnector < handle
       AIst = zeros(1,6);
       ASol = zeros(1,6);
       MACur = zeros(1,6);
-      FT = zeros(1,7);
+      FT = zeros(1,6);
  
       str = textscan( aktStr, '%s','delimiter', '<>');
       if( isempty(str) )
@@ -397,25 +413,37 @@ classdef robotConnector < handle
     % ----------------------------------------------------------------------------------------------------------------------------
     function startSynchronAKorr( obj )
       
+      obj.connector.startSynchronAKorr();
+      
     end
     
     function endSynchronAKorr( obj )
+      
+      obj.connector.endSynchronAKorr();
       
     end
     
     function modifyAKorrSynchron( obj, command )
       
+      obj.connector.modifyAKorrSynchron( command );
+      
     end
     
     function startSynchronRKorr( obj )
+      
+      obj.connector.startSynchronRKorr();
       
     end
     
     function endSynchronRKorr( obj )
       
+      obj.connector.endSynchronRKorr();
+      
     end
     
     function modifyRKorrSynchron( obj, command )
+      
+      obj.connector.modifyRKorrSynchron( command );
       
     end
     
@@ -860,16 +888,27 @@ classdef robotConnector < handle
     
     function btnClose(obj,~,~)
       
+      % stop the display update timer
       stop(obj.guiTimer);
-
+      
+      % close connection
       obj.closeConnection();
 
+      % try to get all handles of all objects
       allObjectHandles = findall(0);
       % ignore matlab console(root)
       allObjectHandles = allObjectHandles(2:end);
+      
+      % pause for 100 Milliseconds
+      pause( 0.2 );
+      
+      % delete .Net object
+      obj.connector.delete();
+      
       % now delete all handles
       delete(allObjectHandles);
   
+      % delete graphic object
       delete(gcbf);      
       
     end
