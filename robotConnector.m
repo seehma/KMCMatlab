@@ -58,8 +58,6 @@ classdef robotConnector < handle
       
       obj.kukaAssembly = NET.addAssembly( obj.fullPathToWrapperDll );
       obj.connector = KukaMatlabConnector.ConnectorObject('commanddoc.xml', obj.ipAddress, port);
-      
-      obj.objUp = 1;
     end
     
     % ----------------------------------------------------------------------------------------------------------------------------

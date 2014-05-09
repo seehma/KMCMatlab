@@ -2,10 +2,10 @@
 % author: Matthias Seehauser
 % date: 05.05.2014
 
-a_m = 0.200; % acceleration 0.200 m/s^2
-v_m = 0.2; % speed 0.25m/s
-s_start = 0.100; % start position 0.100 m
-s_end = 0.600; % end position 0.600 m
+a_m = 128; % acceleration 0.200 m/s^2
+v_m = 512; % speed 0.25m/s
+s_start = 0; % start position
+s_end = 40; % end position
 s_diff = s_end - s_start; % distance to drive
 t_ipo = 0.012; % ipo cycletime
 
@@ -64,6 +64,10 @@ spp_ges_t = [spp_a_t spp_c_t spp_d_t];
 
 % generate a timeline
 t_ges = 0:0.012:t_e;
+
+figure
+plot(s_ges_t)
+
 
 % -------------------------------------------------------------------------------------------------
 % trajectory generated! now do the cool robot stuff
