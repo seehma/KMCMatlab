@@ -13,6 +13,7 @@ classdef robotConnector < handle
     
     ipAddress = '';
     port = 0;
+    protocol = '';
     cycleTime = 0;
     fullPathToWrapperDll = '';
     
@@ -48,12 +49,13 @@ classdef robotConnector < handle
   
   
   methods (Access = public)
-    function obj = robotConnector( ipAddress, port, cycleTime, fullPathToWrapperDll )
+    function obj = robotConnector( ipAddress, port, protocol, cycleTime, fullPathToWrapperDll )
       
       % save the given parameters in the local variables
       obj.cycleTime = cycleTime;
       obj.ipAddress = ipAddress;
       obj.port = port;
+      obj.protocol = protocol;
       obj.fullPathToWrapperDll = fullPathToWrapperDll;
       
       obj.kukaAssembly = NET.addAssembly( obj.fullPathToWrapperDll );
@@ -79,7 +81,11 @@ classdef robotConnector < handle
     % ----------------------------------------------------------------------------------------------------------------------------    
     function returnal = connect(obj)
       
-      returnal = obj.connector.initializeRobotListenThread();
+      if( strcmp(obj.protocol,'TCP') )
+        returnal = obj.connector.initializeRobotListenThreadTCP();
+      else
+        returnal = obj.connector.initializeRobotListenThreadUDP();
+      end
       
     end
     
