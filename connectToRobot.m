@@ -17,8 +17,8 @@ cycleTime = 12;
 
 disp('starting wrapper...');
 
-conHandle=robotConnector('192.168.2.2',6008,'UDP',cycleTime,'C:\Users\Matthias.SEESLENET\Documents\GitHub\KMC\bin\Release\KukaMatlabConnector.dll');
-%conHandle=robotConnector('192.168.1.11',6008,'TCP',cycleTime,'C:\Users\Matthias.SEESLENET\Documents\GitHub\KMC\bin\Release\KukaMatlabConnector.dll');
+%conHandle=robotConnector('192.168.2.2',6008,'UDP',cycleTime,'C:\Users\Matthias.SEESLENET\Documents\GitHub\KMC\bin\Release\KukaMatlabConnector.dll');
+conHandle=robotConnector('192.168.1.11',6008,'TCP',cycleTime,'C:\Users\Matthias.SEESLENET\Documents\GitHub\KMC\bin\Release\KukaMatlabConnector.dll');
 disp('starting connection to robot...');
 conHandle.connect();
 disp('starting gui...');

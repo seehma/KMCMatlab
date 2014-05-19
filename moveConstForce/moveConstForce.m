@@ -2,16 +2,16 @@
 % initialize variables
 % ---------------------------------------------------------------------------------
 averageSize = 20;
-searchSeconds = 15;
-controlSeconds = 15;
+searchSeconds = 20;
+controlSeconds = 18;
 kp = 2;
-ki = 6;
-dt = 0.05;
+ki = 12;
+dt = 0.008;
 kd = 0.0;
 smallestControlValue = 0.001;
 t_ipo = 0.012;
 ipolCyclesPerSecond = floor(1/0.012);
-
+pause(7);
 
 
 %% --------------------------------------------------------------------------------
@@ -28,8 +28,13 @@ for i=1:1:averageSize
 end
 % calculate average of every force
 forceAveraged = mean(forceAveraged);
-forceSearch = forceAveraged(1) - 0.1*forceAveraged(1);
-forceToHave = forceSearch - 0.0*forceAveraged(1);
+
+% for move in X-Direction
+%forceSearch = forceAveraged(1) - 0.1*forceAveraged(1);
+%forceToHave = forceSearch - 0.0*forceAveraged(1);
+% for move in Z-Direction
+forceSearch = forceAveraged(3) - 0.4*forceAveraged(3);
+forceToHave = forceSearch - 0.0*forceAveraged(3);
 
 %% --------------------------------------------------------------------------------
 % start movement in X axis and wait till average force +10% is reached
@@ -50,11 +55,18 @@ for i=1:1:maxSearchTime
   
   [RIstSearch(i,:),RSolSearch(i,:),AIstSearch(i,:),ASolSearch(i,:),MACurSearch(i,:),forceAct] = conHandle.decodeRobotInfoString( conHandle.getAktRobotInfo() );
   
-  % stop when force is 10% bigger than averaged force
-  if( forceAct(1) < forceSearch )
+  % stop when force is 10% bigger than averaged force (X-Dir)
+  %if( forceAct(1) < forceSearch )
+  %  conHandle.modifyRKorrVariable('RKorrZ','0,0');
+  %  objectFound = 1;
+  %  break;
+  %end
+  
+  % stop when force is 10% bigger than averaged force (Z-Dir)
+  if( forceAct(3) > forceSearch )
     conHandle.modifyRKorrVariable('RKorrZ','0,0');
     objectFound = 1;
-    break;
+    %break;
   end
   
   while( toc(innerLoop) < 0.011 )
@@ -62,8 +74,7 @@ for i=1:1:maxSearchTime
 end
 
 % stop movement for sure after looping
-conHandle.modifyRKorrVariable('RKorrZ','0,0');
-test2 = 1;  
+conHandle.modifyRKorrVariable('RKorrZ','0,0');  
 
 %% --------------------------------------------------------------------------------
 % now start movement (Y-direction) in other direction and try to control the force
@@ -90,8 +101,11 @@ for i=1:1:maxControlTime
   
   [RIstCtrl(i,:),RSolCtrl(i,:),AIstCtrl(i,:),ASolCtrl(i,:),MACurCtrl(i,:),forceAct(i,:)] = conHandle.decodeRobotInfoString( conHandle.getAktRobotInfo() );
   
-  % calculate power part of PID
-  systemDeviation = forceToHave - forceAct(i,1);
+  % calculate power part of PID (X-Dir)
+  %systemDeviation = forceToHave - forceAct(i,1);
+  % calculate power part of PID (Z-Dir)
+  systemDeviation = forceAct(i,3)-forceToHave;
+  
   controlValueKP = kp*systemDeviation;
   % calculate integral part of PID
   integral = integral + systemDeviation*dt;

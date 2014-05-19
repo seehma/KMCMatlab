@@ -1,4 +1,4 @@
-
+pause(5);
 loopCount = 1300;
 
 RIst = zeros(loopCount,6);
@@ -6,9 +6,9 @@ RSol = zeros(loopCount,6);
 AIst = zeros(loopCount,6);
 ASol = zeros(loopCount,6);
 MACur = zeros(loopCount,6);
-FT = zeros(loopCount,7);
+FT = zeros(loopCount,6);
 
-zKorr = '-0,1';
+zKorr = '-0,2';
 conHandle.modifyRKorrVariable('RKorrZ',zKorr);
 
 wholeLoop=tic();
@@ -17,7 +17,7 @@ for i=1:1:loopCount
   
   [RIst(i,:),RSol(i,:),AIst(i,:),ASol(i,:), MACur(i,:), FT(i,:)] = conHandle.decodeRobotInfoString( conHandle.getAktRobotInfo() );
   
-  if( FT(i,1) < 0.0150)
+  if( FT(i,1) < 0.030)
     conHandle.modifyRKorrVariable('RKorrZ','0,0');
     %break;
   end

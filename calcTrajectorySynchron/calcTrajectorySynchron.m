@@ -2,10 +2,10 @@
 % author: Matthias Seehauser
 % date: 05.05.2014
 
-a_m = 0.200; % acceleration 0.200 m/s^2
-v_m = 0.2; % speed 0.25m/s
-s_start = 0.100; % start position 0.100 m
-s_end = 0.600; % end position 0.600 m
+a_m = 32; % acceleration 0.200 m/s^2
+v_m = 64; % speed 0.25m/s
+s_start = 0; % start position 0.100 m
+s_end = 30; % end position 0.600 m
 s_diff = s_end - s_start; % distance to drive
 t_ipo = 0.012; % ipo cycletime
 
@@ -74,6 +74,8 @@ if( conHandle.isConnected() ~= 1 )
   error('KMC is not connected');
 end
 
+conHandle.startSynchronAKorr();
+
 % create the differences of the position
 length = size(s_ges_t);
 s_differences = zeros(length);
@@ -91,20 +93,20 @@ for i=1:1:length(2)
   command = strcat('A:',numberAsString,':0:0:0:0:0');
   
   % start synchron AKorr after 10 cycles
-  if( i == 10 )
-    conHandle.startSynchronAKorr();
-  end
+  %if( i == 10 )
+  %  conHandle.startSynchronAKorr();
+  %end
   
   % send correction commands
   conHandle.modifyAKorrSynchron( command ); 
   
-  while( ~conHandle.isNextCycleStarted() )
-  end
+  %while( ~conHandle.isNextCycleStarted() )
+  %end
   
   toc()
 end
 
-pause(1);
+%pause(1);
 conHandle.endSynchronAKorr();
 
 

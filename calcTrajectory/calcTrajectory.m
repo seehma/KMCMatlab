@@ -2,10 +2,10 @@
 % author: Matthias Seehauser
 % date: 05.05.2014
 
-a_m = 128; % acceleration 0.200 m/s^2
-v_m = 512; % speed 0.25m/s
+a_m = 32; % acceleration 0.200 m/s^2
+v_m = 64; % speed 0.25m/s
 s_start = 0; % start position
-s_end = 40; % end position
+s_end = 30; % end position
 s_diff = s_end - s_start; % distance to drive
 t_ipo = 0.012; % ipo cycletime
 
@@ -65,8 +65,8 @@ spp_ges_t = [spp_a_t spp_c_t spp_d_t];
 % generate a timeline
 t_ges = 0:0.012:t_e;
 
-figure
-plot(s_ges_t)
+%figure
+%plot(s_ges_t)
 
 
 % -------------------------------------------------------------------------------------------------
@@ -86,11 +86,20 @@ for i=1:1:(length(2)-1)
 end
 s_differences(length(2)) = 0;
 
+RIst = zeros(length(2),6);
+RSol = zeros(length(2),6);
+AIst = zeros(length(2),6);
+ASol = zeros(length(2),6);
+MACur = zeros(length(2),6);
+FT = zeros(length(2),6);
+
 for i=1:1:length(2)
   tic();
   numberAsString = num2str(s_differences(i),'%5.6f');
   numberAsString = strrep(numberAsString, '.', ',');
   conHandle.modifyAKorrVariable('AKorr1',numberAsString); 
+  
+  [RIst(i,:),RSol(i,:),AIst(i,:),ASol(i,:), MACur(i,:), FT(i,:)] = conHandle.decodeRobotInfoString( conHandle.getAktRobotInfo() );
   
   while( ~conHandle.isNextCycleStarted() )
   end
@@ -98,4 +107,4 @@ for i=1:1:length(2)
   toc()
 end
 
-
+figure;
