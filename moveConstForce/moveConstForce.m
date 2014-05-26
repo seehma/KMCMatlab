@@ -13,28 +13,39 @@ t_ipo = 0.012;
 ipolCyclesPerSecond = floor(1/0.012);
 pause(7);
 
+% define calibration matrix
+calibMatrix = [ -0.36747 3.78641  4.683617 -160.38  6.015184 167.301508;
+                -9.29916 186.1563 0.684547 -93.4096 -3.38525 -96.4325752;
+                260.921  2.761821 276.9475 5.829742 266.8031 3.89020685;
+                -0.43705 3.961038 -17.6279 -2.32935 16.5567  -1.82877504;
+                19.14023 0.371204 -10.2432 3.161771 -10.131  -3.7240819;
+                0.277521 -9.49679 -0.11981 -9.46857 0.106407 -9.77081943];
 
 %% --------------------------------------------------------------------------------
 % first find the force without contact
 % ---------------------------------------------------------------------------------
 forceAveraged = zeros(averageSize,6);
+forceAveragedConverted = zeros(averageSize,6);
+
 for i=1:1:averageSize
   innerLoop=tic();
   
   [~,~,~,~,~,forceAveraged(i,:)] = conHandle.decodeRobotInfoString( conHandle.getAktRobotInfo() );
   
+  forceAveragedConverted(i,:) = calibMatrix * forceAveraged(i,:)';
+  
   while( toc(innerLoop) < 0.011 )
   end
 end
 % calculate average of every force
-forceAveraged = mean(forceAveraged);
+forceAveragedConverted = mean(forceAveragedConverted);
 
 % for move in X-Direction
-%forceSearch = forceAveraged(1) - 0.1*forceAveraged(1);
-%forceToHave = forceSearch - 0.0*forceAveraged(1);
+%forceSearch = forceAveragedConverted(1) - 0.1*forceAveragedConverted(1);
+%forceToHave = forceSearch - 0.0*forceAveragedConverted(1);
 % for move in Z-Direction
-forceSearch = forceAveraged(3) - 0.4*forceAveraged(3);
-forceToHave = forceSearch - 0.0*forceAveraged(3);
+forceSearchConverted = forceAveragedConverted(3) - 0.4*forceAveragedConverted(3);
+forceToHaveConverted = forceSearchConverted - 0.0*forceAveragedConverted(3);
 
 %% --------------------------------------------------------------------------------
 % start movement in X axis and wait till average force +10% is reached
@@ -55,6 +66,8 @@ for i=1:1:maxSearchTime
   
   [RIstSearch(i,:),RSolSearch(i,:),AIstSearch(i,:),ASolSearch(i,:),MACurSearch(i,:),forceAct] = conHandle.decodeRobotInfoString( conHandle.getAktRobotInfo() );
   
+  forceActConverted = calibMatrix * forceAct';
+  
   % stop when force is 10% bigger than averaged force (X-Dir)
   %if( forceAct(1) < forceSearch )
   %  conHandle.modifyRKorrVariable('RKorrZ','0,0');
@@ -62,8 +75,8 @@ for i=1:1:maxSearchTime
   %  break;
   %end
   
-  % stop when force is 10% bigger than averaged force (Z-Dir)
-  if( forceAct(3) > forceSearch )
+  % stop when force is 10% bigger than averaged force (Y-Dir)
+  if( forceActConverted(2) > forceSearchConverted )
     conHandle.modifyRKorrVariable('RKorrZ','0,0');
     objectFound = 1;
     %break;
@@ -91,6 +104,7 @@ AIstCtrl = zeros(maxControlTime,6);
 ASolCtrl = zeros(maxControlTime,6);
 MACurCtrl = zeros(maxControlTime,6);
 forceAct = zeros(maxControlTime,6);
+forceActConverted = zeros(maxControlTime,6);
 
 integral = 0;
 derivative = 0;
@@ -101,10 +115,12 @@ for i=1:1:maxControlTime
   
   [RIstCtrl(i,:),RSolCtrl(i,:),AIstCtrl(i,:),ASolCtrl(i,:),MACurCtrl(i,:),forceAct(i,:)] = conHandle.decodeRobotInfoString( conHandle.getAktRobotInfo() );
   
+  forceActConverted(i,:) = calibMatrix * forceAct(i,:)';
+  
   % calculate power part of PID (X-Dir)
   %systemDeviation = forceToHave - forceAct(i,1);
   % calculate power part of PID (Z-Dir)
-  systemDeviation = forceAct(i,3)-forceToHave;
+  systemDeviation = forceActConverted(i,2)-forceToHaveConverted;
   
   controlValueKP = kp*systemDeviation;
   % calculate integral part of PID
@@ -127,15 +143,16 @@ for i=1:1:maxControlTime
   
   % convert to string
   controlValueAsString = num2str(controlValue,'%5.6f');
-  controlValueAsString = strrep(controlValueAsString, '.', ',')
+  controlValueAsString = strrep(controlValueAsString, '.', ',');
   
   conHandle.modifyRKorrVariable('RKorrZ',controlValueAsString);
   
   prevSystemDeviation = systemDeviation;
   
   saveCV(i) = controlValue;
+  saveSD(i) = systemDeviation;
   
-  while( toc(innerLoop) < 3*t_ipo )
+  while( toc(innerLoop) < 2*t_ipo )
   end  
 end
 
