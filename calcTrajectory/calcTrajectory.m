@@ -5,12 +5,12 @@
 a_m = 32; % acceleration 0.200 m/s^2
 v_m = 64; % speed 0.25m/s
 s_start = 0; % start position
-s_end = 30; % end position
+s_end = 10; % end position
 s_diff = s_end - s_start; % distance to drive
 t_ipo = 0.012; % ipo cycletime
 
 % calculate driven distance after acceleration phase
-t_a_check = v_m/a_m;
+t_a_check = 2*v_m/a_m;
 s_a_check = a_m*t_a_check^2/2;
 
 % check if it is greater than the half of the full distance
@@ -66,7 +66,7 @@ spp_ges_t = [spp_a_t spp_c_t spp_d_t];
 t_ges = 0:0.012:t_e;
 
 %figure
-%plot(s_ges_t)
+plot(s_ges_t)
 
 
 % -------------------------------------------------------------------------------------------------
@@ -74,37 +74,37 @@ t_ges = 0:0.012:t_e;
 % -------------------------------------------------------------------------------------------------
 
 % check if it is connected
-if( conHandle.isConnected() ~= 1 )
-  error('KMC is not connected');
-end
-
-% create the differences of the position
-length = size(s_ges_t);
-s_differences = zeros(length);
-for i=1:1:(length(2)-1)
-  s_differences(i) = s_ges_t(i+1) - s_ges_t(i);
-end
-s_differences(length(2)) = 0;
-
-RIst = zeros(length(2),6);
-RSol = zeros(length(2),6);
-AIst = zeros(length(2),6);
-ASol = zeros(length(2),6);
-MACur = zeros(length(2),6);
-FT = zeros(length(2),6);
-
-for i=1:1:length(2)
-  tic();
-  numberAsString = num2str(s_differences(i),'%5.6f');
-  numberAsString = strrep(numberAsString, '.', ',');
-  conHandle.modifyAKorrVariable('AKorr1',numberAsString); 
-  
-  [RIst(i,:),RSol(i,:),AIst(i,:),ASol(i,:), MACur(i,:), FT(i,:)] = conHandle.decodeRobotInfoString( conHandle.getAktRobotInfo() );
-  
-  while( ~conHandle.isNextCycleStarted() )
-  end
-  
-  toc()
-end
-
-figure;
+% if( conHandle.isConnected() ~= 1 )
+%   error('KMC is not connected');
+% end
+% 
+% % create the differences of the position
+% length = size(s_ges_t);
+% s_differences = zeros(length);
+% for i=1:1:(length(2)-1)
+%   s_differences(i) = s_ges_t(i+1) - s_ges_t(i);
+% end
+% s_differences(length(2)) = 0;
+% 
+% RIst = zeros(length(2),6);
+% RSol = zeros(length(2),6);
+% AIst = zeros(length(2),6);
+% ASol = zeros(length(2),6);
+% MACur = zeros(length(2),6);
+% FT = zeros(length(2),6);
+% 
+% for i=1:1:length(2)
+%   tic();
+%   numberAsString = num2str(s_differences(i),'%5.6f');
+%   numberAsString = strrep(numberAsString, '.', ',');
+%   conHandle.modifyAKorrVariable('AKorr1',numberAsString); 
+%   
+%   [RIst(i,:),RSol(i,:),AIst(i,:),ASol(i,:), MACur(i,:), FT(i,:)] = conHandle.decodeRobotInfoString( conHandle.getAktRobotInfo() );
+%   
+%   while( ~conHandle.isNextCycleStarted() )
+%   end
+%   
+%   toc()
+% end
+% 
+% figure;
